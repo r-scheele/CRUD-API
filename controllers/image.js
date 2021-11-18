@@ -1,3 +1,4 @@
+const resHandler = require("../util/resHandler")
 const fs = require("fs")
 const path = require("path")
 const Image = require("../models/image")
@@ -12,7 +13,14 @@ exports.postImage = (req, res) => {
 }
 
 exports.getImage = (req, res) => {
-	Image.findById(req.params.id, (image) => res.json(image))
+	Image.findById(req.params.id, (image) =>
+		resHandler.successResMsg({
+			res,
+			success: true,
+			message: "File deleted successfully",
+			data: image,
+		})
+	)
 }
 
 exports.putImage = (req, res) => {
@@ -25,7 +33,11 @@ exports.putImage = (req, res) => {
 		images.splice(images.indexOf(prevImage), 1, newImage)
 		fs.writeFile(FILE_PATH, JSON.stringify(images), (err) => {
 			if (err) throw err
-			res.json({ msg: `${newImage.name} saved successfully` })
+			resHandler.successResMsg({
+				res,
+				success: true,
+				message: "Image saved successfully",
+			})
 		})
 	})
 }
@@ -36,14 +48,24 @@ exports.deleteImage = (req, res) => {
 		images.splice(images.indexOf(prevImage), 1)
 		fs.writeFile(FILE_PATH, JSON.stringify(images), (err) => {
 			if (err) throw err
-			res.json({ msg: `deleted successfully` })
+			resHandler.successResMsg({
+				res,
+				success: true,
+				message: "Image deleted successfully",
+			})
 		})
 	})
 }
 
 exports.getImages = (req, res) => {
-	console.log("here")
-	Image.fetchAll((images) => {})
+	Image.fetchAll((images) => {
+		resHandler.successResMsg({
+			res,
+			success: true,
+			message: "File deleted successfully",
+			data: images,
+		})
+	})
 }
 
 exports.postImages = (req, res) => {
@@ -51,7 +73,11 @@ exports.postImages = (req, res) => {
 		const data = [...images, ...req.body]
 		fs.writeFile(FILE_PATH, JSON.stringify(data), (err) => {
 			if (err) throw err
-			res.json({ msg: `saved successfully` })
+			resHandler.successResMsg({
+				res,
+				success: true,
+				message: "Image deleted successfully",
+			})
 		})
 	})
 }
