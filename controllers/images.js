@@ -2,7 +2,7 @@ const fs = require("fs")
 const path = require("path")
 const Image = require("../models/image")
 const resHandler = require("../util/resHandler")
-FILE_PATH = path.join(require.main.path, "data.json")
+const FILE_PATH = path.join(require.main.path, "data", "images.json")
 
 exports.getImages = (req, res) => {
 	Image.fetchAll((images) =>
@@ -52,6 +52,6 @@ exports.deleteImages = (req, res) => {
 			})
 		})
 	} else {
-		res.json({msg: "File does not exist"})
+		res.json({ msg: "File does not exist" })
 	}
 }

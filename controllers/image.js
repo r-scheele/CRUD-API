@@ -3,11 +3,11 @@ const fs = require("fs")
 const path = require("path")
 const Image = require("../models/image")
 
-FILE_PATH = path.join(require.main.path, "data.json")
+const FILE_PATH = path.join(require.main.path, "data", "images.json")
 
 exports.postImage = (req, res) => {
-	const { name, url } = req.body
-	image = new Image(name, url)
+	const { name, url, price } = req.body
+	image = new Image(name, url, price)
 	image.save()
 	res.json(image)
 }
@@ -36,7 +36,7 @@ exports.putImage = (req, res) => {
 			resHandler.successResMsg({
 				res,
 				success: true,
-				message: "Image saved successfully",
+				message: "Image editted successfully",
 			})
 		})
 	})

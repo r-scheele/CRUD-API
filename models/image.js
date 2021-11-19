@@ -1,6 +1,6 @@
 const fs = require("fs")
 const path = require("path")
-FILE_PATH = path.join(require.main.path, "data.json")
+const FILE_PATH = path.join(require.main.path, "data", "images.json")
 
 const getImages = (callback) => {
 	let fileExists = fs.existsSync(FILE_PATH)
@@ -31,9 +31,10 @@ const getImage = (id, cb) => {
 }
 
 class Image {
-	constructor(name, url) {
+	constructor(name, url, price) {
 		this.name = name
 		this.url = url
+		this.price = price
 		this.FILE_PATH
 	}
 	static findById(id, cb) {
